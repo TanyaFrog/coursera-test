@@ -2,27 +2,38 @@
 // console.log(document.getElementById("title"));
 // console.log(document instanceof HTMLDocument);
 
-function sayHello () {
-  var name =
-   document.getElementById("name").value;
-   var message = "<h2>Hello " + name + "!</h2>";
+document.addEventListener("DOMContentLoaded",
+  function (event) {
+    
+    // Unobtrusive event binding
+    document.querySelector("button")
+      .addEventListener("click", function () {
+        
+        // Call server to get the name
+        $ajaxUtils
+          .sendGetRequest("data/name.txt", 
+            function (request) {
+              var name = request.responseText;
 
-  // document
-  //   .getElementById("content")
-  //   .textContent = message;
+              document.querySelector("#content")
+                .innerHTML = "<h2>Hello " + name + "!</h2>";
+            });
 
-  document
-    .getElementById("content")
-    .innerHTML = message;
-
-  if (name === "student") {
-    var title = 
-      document
-        .querySelector("#title")
-        .textContent;
-    title += " & Lovin' it!";
-    document
-        .querySelector("h1")
-        .textContent = title;
+        
+      });
   }
-}
+);
+
+
+
+
+
+
+
+
+// document.querySelector("button").onclick = sayHello;
+
+
+
+
+
